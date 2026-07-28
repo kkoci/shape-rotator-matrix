@@ -30,3 +30,11 @@ Scripts here:
   files-in-repo containing values.
 - Validate before mutating (e.g. `/whoami` before pushing the token).
 - Are idempotent — running twice is the same as once.
+
+## Admin command security
+
+The approver only executes `!mint`, `!codes`, and `!revoke` from the encrypted
+admin room when mautrix reports the sender device as `CROSS_SIGNED_TOFU` or
+stronger. Room power level and `ADMIN_ALLOWLIST` are checked after that
+cryptographic gate. Cleartext commands, unknown devices, and rotated master
+keys are refused; see [`docs/SECURITY.md`](../../docs/SECURITY.md).
